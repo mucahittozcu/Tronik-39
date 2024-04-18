@@ -203,25 +203,24 @@ export default function App() {
 					- keyUp -> hedef nesnenin keyPressed özelliği = false 
 
 */
-const handleMouseDownClick = (e) =>{
-  const pressedFind = synthKeys.find((key) => key.computerKey === e.target.key)
-  if(pressedFind){
+
+
+const handleMouseDownClick = (event) =>{
     setSynthKeys((keys) => {
-      const syntKeysMap = keys.map((key) => (
-        key.computerKey === e.target.key ? {...key,active: true, keyPressed: true} : key
+      return keys.map((key) => (
+        key.keyName === event.target.dataset.note ? {...key,active: true} : key
       ))
-      return syntKeysMap
     })
-  }
+  
 }
 const handleKeyDownClick = (e) =>{
   const pressedFind = synthKeys.find((key) => key.computerKey === e.key)
   if(pressedFind){
     setSynthKeys((keys) => {
-      const syntKeysMap = keys.map((key) => (
+     return keys.map((key) => (
         key.computerKey === e.key ? {...key,active: true, keyPressed: true} : key
       ))
-      return syntKeysMap
+    
     })
   }
 }
@@ -229,10 +228,9 @@ const handleKeyUpClick = (e) =>{
   const pressedFind = synthKeys.find((key) => key.computerKey === e.key)
   if(pressedFind){
     setSynthKeys((keys) => {
-      const syntKeysMap = keys.map((key) => (
-        key.computerKey === e.key ? {...key,active: false, keyPressed: false} : key
+      return keys.map((key) => (
+        key.computerKey === e.key ? {...key, keyPressed: false} : key
       ))
-      return syntKeysMap
     })
   }
 }
@@ -246,3 +244,42 @@ const handleKeyUpClick = (e) =>{
     </div>
   )
 }
+
+
+// const handleClick = (event) =>{
+//   const targetKey = synthKeys.find((key) => {
+//    if(event.type === "mousedown"){
+//      return event.target.dataset.note === key.keyName
+//    }
+//    else {
+//      return event.key === key.computerKey
+//    }
+//   })
+//   if(targetKey && !event.repeat){
+//    setSynthKeys((pre) => {
+//      function updateKey(key){
+//        const updateKey = {
+//          ...key,
+//          active: event.type === "keyup" ? false : true,
+//          keyPressed: 
+//          event.type === "keydown" ? true :
+//          event.type === "keyup" ? false :
+//          key.keyPressed
+//        }
+//        return updateKey
+//      }
+//      return pre.map((key) => key === targetKey ? updateKey(key) : key)
+//    })
+//   }
+//  }
+//    return (
+//      <div className='wrapper'>
+//        <div className='main-container' onMouseDown={handleClick} onKeyDown={handleClick} onKeyUp={handleClick}>
+//          <Settings {...propsBundle} />
+ 
+//          <Keys showKeys={showKeys} synthKeys={synthKeys} />
+//        </div>
+//      </div>
+//    )
+//  }
+ 
